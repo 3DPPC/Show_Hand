@@ -1,0 +1,68 @@
+#include <Wire.h> //sets up I2C communication
+
+#define SLAVE_ADDR 9 //defines the slave address
+
+//initialize all potentiometers
+int pot1;
+//int pot2;
+//int pot3;
+//int pot4;
+//int pot5;
+//int pot6;
+
+int potData1;
+//int potData2;
+//int potData3;
+//int potData4;
+//int potData5;
+//int potData6;
+
+void setup() 
+{
+  Wire.begin();
+  Serial.begin(115200);
+
+}
+
+void loop() 
+{
+  Serial.println("Sending Data from Pot 1");
+
+  //read inputs from potentiometers
+  pot1 = analogRead(A0);
+  //pot2 = analogRead(A1);
+  //pot3 = analogRead(A2);
+  //pot4 = analogRead(A3);
+  //pot5 = analogRead(A6);
+  //pot6 = analogRead(A7);
+
+  potData1 = map(pot1, 1, 1023, 1, 255);
+  //potData2 = map(pot2, 1, 1023, 1, 255);
+  //potData3 = map(pot3, 1, 1023, 1, 255);
+  //potData4 = map(pot4, 1, 1023, 1, 255);
+  //potData5 = map(pot5, 1, 1023, 1, 255);
+  //potData6 = map(pot6, 1, 1023, 1, 255);
+
+  
+  //set the address of the slave board
+  Wire.beginTransmission(SLAVE_ADDR);
+  Serial.println("Begining Transmission");
+
+  //begin writing data to other arduino
+  Wire.write(potData1);
+  //Wire.write(potData2);
+  //Wire.write(potData3);
+  //Wire.write(potData4);
+  //Wire.write(potData5);
+  //Wire.write(potData6);
+  
+  Serial.print("Transmitted Data: ");
+
+  //end transmission between the master and slave 
+  Wire.endTransmission();
+
+  Serial.println("Finished Transmission");
+
+  delay(50);
+
+}

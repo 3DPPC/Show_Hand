@@ -1,0 +1,91 @@
+#include <Wire.h>
+#include <Servo.h>
+
+#define SLAVE_ADDR 9 //define address of the slave
+
+//initialize all pots from master
+int pot1;
+//int pot2;
+//int pot3;
+//int pot4;
+//int pot5;
+//int pot6;
+
+//instantiate all servos
+Servo index;
+//Servo middle;
+//Servo ring;
+//Servo pinkie;
+//Servo thumbJoint;
+//Servo thumbTip;
+
+void setup() 
+{
+  Serial.begin(115200);
+  
+  Wire.begin(SLAVE_ADDR); //begin communication
+
+  //determines what happens when receiving data from master
+  Wire.onReceive(receiveEvent);
+
+  //initialize the servos
+  index.attach(11); 
+  //middle.attach(10);
+  //ring.attach(9);
+  //pinkie.attach(8);
+  //thumbJoint.attach(7);
+  //thumbTip.attach(6);
+}
+
+void receiveEvent(int bytes)
+{
+  pot1 = Wire.read(); //read data from the potentimeter
+  //pot2 = Wire.read();
+  //pot3 = Wire.read();
+  //pot4 = Wire.read();
+  //pot5 = Wire.read();
+  //pot6 = Wire.read();
+  
+}
+
+void loop() 
+{
+ 
+  //Serial.println(pot1); //print the potentiometer value
+  int moveIndex = map(pot1,0,255,0,180); //map the pot values
+  Serial.println(moveIndex); 
+  index.write(moveIndex); //move the servo
+  delay(10);
+  //make sure that it reads the average of 5 values and then rotates the servo
+
+  /*
+ 
+  int moveMiddle = map(pot2,0,255,0,180); //map the pot values
+  Serial.println(moveMiddle); 
+  index.write(moveMiddle); //move the servo
+  delay(10);
+
+  int moveRing = map(pot3,0,255,0,180); //map the pot values
+  Serial.println(moveRing); 
+  index.write(moveRing); //move the servo
+  delay(10);
+
+  int movePinkie = map(pot4,0,255,0,180); //map the pot values
+  Serial.println(movePinkie); 
+  index.write(movePinkie); //move the servo
+  delay(10);
+
+  int moveThumbJoint = map(pot5,0,255,0,180); //map the pot values
+  Serial.println(moveThumbJoint); 
+  index.write(moveThumbJoint); //move the servo
+  delay(10);
+
+  int moveThumbTip = map(pot6,0,255,0,180); //map the pot values
+  Serial.println(moveThumbTip); 
+  index.write(moveThumbTip); //move the servo
+  delay(10);
+  
+  */
+
+  delay(100);
+}

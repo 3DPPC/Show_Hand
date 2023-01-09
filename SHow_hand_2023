@@ -62,11 +62,19 @@ void loop() {
   else if(ps2.readButton(PS2_SQUARE) == 0) {
     MiddleFinger();
   }
-  
-  //perform  the corresponding function
-  if(ps2.readButton(PS2_Select)==0){ // if 'Select' button is pressed (=0)
-    digitalWrite(LEDPIN, HIGH);
+  else if(ps2.readButton(PS2_TRIANGLE) == 0) {
+    ThumbTouch();
   }
+  else if(ps2.readButton(PS2_CROSS) == 0) {
+    FlexFingers();
+  }
+  else if(ps2.readButton(PS2_JOYSTICK_LEFT_X_AXIS == 0) {
+    RotateWrist();
+  }
+  else if(ps2.readButton(PS2_JOYSTICK_LEFT_Y_AXIS == 0) {
+    FlexWrist();
+  }
+}
 
 //Function 1: Open and Close Hand
 
@@ -78,12 +86,5 @@ void loop() {
 
 //Function 5: Rotate Wrist
 
-//Function 6: Flex Wrist
-
-//Function 7: 
-
-//Function 8:
-
-
-    
+//Function 6: Flex Wrist    
 }

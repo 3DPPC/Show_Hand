@@ -1,1 +1,89 @@
-//put code here
+/*
+Button/Joystick Mapping
+-- Button Press --
+*hold down close, release slowly opens**
+Individually Move Fingers
+
+Hand Motions 
+Open Hand (Drop)/Close Hand (Grasp)
+Ok
+Middle 
+
+-- Joystick --
+Fingers Close 
+
+Digital button:
+    PS2_SELECT
+    PS2_JOYSTICK_LEFT
+    PS2_JOYSTICK_RIGHT
+    PS2_START
+    PS2_UP
+    PS2_RIGHT
+    PS2_DOWN
+    PS2_LEFT
+    PS2_LEFT_2
+    PS2_RIGHT_2
+    PS2_LEFT_1
+    PS2_RIGHT_1
+    PS2_TRIANGLE
+    PS2_CIRCLE
+    PS2_CROSS
+    PS2_SQUARE
+  Analog button:
+    PS2_JOYSTICK_LEFT_X_AXIS
+    PS2_JOYSTICK_LEFT_Y_AXIS
+    PS2_JOYSTICK_RIGHT_X_AXIS
+    PS2_JOYSTICK_RIGHT_Y_AXIS
+    PS2_JOYSTICK_LEFT_UP
+    PS2_JOYSTICK_LEFT_DOWN
+    PS2_JOYSTICK_LEFT_LEFT
+    PS2_JOYSTICK_LEFT_RIGHT
+    PS2_JOYSTICK_RIGHT_UP
+    PS2_JOYSTICK_RIGHT_DOWN
+    PS2_JOYSTICK_RIGHT_LEFT
+    PS2_JOYSTICK_RIGHT_RIGHT
+    
+*/
+#include <CytronPS2Shield.h>
+#include <SoftwareSerial.h>
+
+Cytron_PS2Shield ps2(2,3); //SoftwareSerial: Rx and Tx Pen
+
+
+void setup() {
+    ps2.begin(9600);
+}
+
+void loop() {
+  //check what button has been pressed
+  if(ps2.readButton(PS2_CIRCLE) == 0) {
+    OpenCloseHand();
+  }
+  else if(ps2.readButton(PS2_SQUARE) == 0) {
+    MiddleFinger();
+  }
+  
+  //perform  the corresponding function
+  if(ps2.readButton(PS2_Select)==0){ // if 'Select' button is pressed (=0)
+    digitalWrite(LEDPIN, HIGH);
+  }
+
+//Function 1: Open and Close Hand
+
+//Function 3: Middle Finger
+
+//Function 4: Thumb Touch All 4 Fingers
+
+//Function 5: Flex All 5 Fingers
+
+//Function 6: Rotate Wrist
+
+//Function 7: Flex Wrist
+
+//Function 8: 
+
+//Function 9:
+
+
+    
+}

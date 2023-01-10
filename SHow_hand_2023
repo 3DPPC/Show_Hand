@@ -44,47 +44,159 @@ Digital button:
     PS2_JOYSTICK_RIGHT_RIGHT
     
 */
-#include <CytronPS2Shield.h>
-#include <SoftwareSerial.h>
+#include <CytronPS2Shield.h> //import shield .h file
+#include <SoftwareSerial.h> //import serial com file
+#include <Servo.h> //import servo.h
+
+//initialize servo data
+Servo index
+Servo midde;
+Servo ring;
+Servo pinkie;
+Servo thumb_flex;
+Servo thumb
+Servo wristFlex1;
+Servo wristFlex2;
+Servo wristRotate;
 
 Cytron_PS2Shield ps2(2,3); //SoftwareSerial: Rx and Tx Pen
 
 
 void setup() {
+    Serial.begin(9600);
     ps2.begin(9600);
+
+    //attach servos to their respective pins
+    index.attach(1);
+    middle.attach(2);
+    ring.attach(3);
+    pinkie.attach(4);
+    thumb_flex.attach(5);
+    thumb.attach(6);
+    wristFlex1.attach(7);
+    wristFlex2.attach(8);
+    wristRotate.attach(9);
 }
 
 void loop() {
   //check what button has been pressed
   if(ps2.readButton(PS2_CIRCLE) == 0) {
+    Serial.println("CIRCLE");
     OpenCloseHand();
   }
   else if(ps2.readButton(PS2_SQUARE) == 0) {
+    Serial.println("SQUARE");
     MiddleFinger();
   }
   else if(ps2.readButton(PS2_TRIANGLE) == 0) {
+    Serial.println("TRIANGLE");
     ThumbTouch();
   }
   else if(ps2.readButton(PS2_CROSS) == 0) {
+    Serial.println("CROSS");
     FlexFingers();
   }
-  else if(ps2.readButton(PS2_JOYSTICK_LEFT_X_AXIS == 0) {
-    RotateWrist();
-  }
-  else if(ps2.readButton(PS2_JOYSTICK_LEFT_Y_AXIS == 0) {
-    FlexWrist();
+  //if not button is pressed then the servo with be able to rotate and flex
+  else {
+    RotateAndFlexWrist();
   }
 }
 
 //Function 1: Open and Close Hand
+void OpenCloseHand() { 
+  //first the close hand 
+  pinkie.write(180);
+  ring.write(180);
+  middle.write(180);
+  index.write(180);
+  thumbflex.write(90);
+  thumb.write(180);
+  delay(1000); //make it delay for 1 sec
+  
+  //then open the hand
+  thumbflex.write(0);
+  thumb.write(0);
+  index.write(0);
+  middle.write(0);
+  ring.write(0);
+  pinkie.write(0);
+  delay(1000);
+}
 
 //Function 2: Middle Finger
+void MiddleFinger() {
+    //first the close hand 
+  pinkie.write(180);
+  ring.write(180);
+  middle.write(0);
+  index.write(180);
+  thumbflex.write(90);
+  thumb.write(180);
+  delay(2000); //make it delay for 1 sec
+  
+  //then open the hand
+  thumbflex.write(0);
+  thumb.write(0);
+  index.write(0);
+  middle.write(0);
+  ring.write(0);
+  pinkie.write(0);
+  delay(1000);
+}
 
 //Function 3: Thumb Touch All 4 Fingers
+void ThumbTouch(){
+  thumbflex.write(135);
+  delay(100);
+  pinkie.write(45);
+  delay(100);
+
+  thumbflex.write(125);
+  delay(100);
+  ring.write(65);
+  delay(100);
+
+  thumbflex.write(90);
+  delay(100);
+  middle.write(70);
+  delay(100);
+
+  thumbflex.write(75);
+  delay(100);
+  index.write(10);
+  delay(100);
+
+  thumbflex.write(0);
+  delay(1000);
+}
 
 //Function 4: Flex All 5 Fingers
+void FlexFingers() {
+  pinkie.write(180);
+  delay(100);
+  pinkie.write(0);
 
-//Function 5: Rotate Wrist
+  ring.write(180);
+  delay(100);
+  ring.write(0);
 
-//Function 6: Flex Wrist    
+  middle.write(180);
+  delay(100);
+  middle.write(0);
+
+  index.write(180);
+  delay(100);
+  index.write(0);
+
+  thumbflex.write(90);
+  delay(100);
+  thumb.write(180);
+  delay(100);
+  thumb.write(0);
+  delay(100);
+  thumbflex.write(0);
+  delay(1000);
+}
+
+    
 }

@@ -146,48 +146,68 @@ void MiddleFinger() {
 
 //Function 3: Thumb Touch All 4 Fingers
 void ThumbTouch(){
+  //first move the thumb flexing joint to the approrpiate position
+  //i.e. near the pinkie, ring, middle or index finger
+  //next have the respective finger close a small amount to such that
+  //the tip of the finger touches the tip of the thumb
+  //then retract that finger and move the thumb onto the next finger position
+  //repeat until all the fingers have touched the thumb
+
+  //pinkie-thumb touch
   thumbflex.write(135);
   delay(100);
   pinkie.write(45);
   delay(100);
-
+  pinkie.write(0);
+  delay(1000);
+  //ring-thumb touch
   thumbflex.write(125);
   delay(100);
   ring.write(65);
   delay(100);
-
+  ring.write(0);
+  delay(1000);
+  //middle-thumb touch
   thumbflex.write(90);
   delay(100);
   middle.write(70);
   delay(100);
-
+  middle.write(0);
+  delay(1000);
+  //index-thumb touch
   thumbflex.write(75);
   delay(100);
   index.write(10);
   delay(100);
+  index.write(0);
+  delay(1000);
 
+  //move the thumb back to its original position
   thumbflex.write(0);
   delay(1000);
 }
 
 //Function 4: Flex All 5 Fingers
 void FlexFingers() {
+  //for each finger, flex it to its maximum amount and then retract it
+
+  //pinkie
   pinkie.write(180);
   delay(100);
   pinkie.write(0);
-
+  //ring
   ring.write(180);
   delay(100);
   ring.write(0);
-
+  //middle
   middle.write(180);
   delay(100);
   middle.write(0);
-
+  //index
   index.write(180);
   delay(100);
   index.write(0);
-
+  //thumb
   thumbflex.write(90);
   delay(100);
   thumb.write(180);
@@ -196,7 +216,4 @@ void FlexFingers() {
   delay(100);
   thumbflex.write(0);
   delay(1000);
-}
-
-    
 }

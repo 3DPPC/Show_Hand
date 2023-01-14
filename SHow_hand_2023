@@ -1,17 +1,63 @@
+/*
+Button/Joystick Mapping
+-- Button Press --
+*hold down close, release slowly opens**
+Individually Move Fingers
+
+Hand Motions 
+Open Hand (Drop)/Close Hand (Grasp)
+Ok
+Middle 
+
+-- Joystick --
+Fingers Close 
+
+Digital button:
+    PS2_SELECT
+    PS2_JOYSTICK_LEFT
+    PS2_JOYSTICK_RIGHT
+    PS2_START
+    PS2_UP
+    PS2_RIGHT
+    PS2_DOWN
+    PS2_LEFT
+    PS2_LEFT_2
+    PS2_RIGHT_2
+    PS2_LEFT_1
+    PS2_RIGHT_1
+    PS2_TRIANGLE
+    PS2_CIRCLE
+    PS2_CROSS
+    PS2_SQUARE
+  Analog button:
+    PS2_JOYSTICK_LEFT_X_AXIS
+    PS2_JOYSTICK_LEFT_Y_AXIS
+    PS2_JOYSTICK_RIGHT_X_AXIS
+    PS2_JOYSTICK_RIGHT_Y_AXIS
+    PS2_JOYSTICK_LEFT_UP
+    PS2_JOYSTICK_LEFT_DOWN
+    PS2_JOYSTICK_LEFT_LEFT
+    PS2_JOYSTICK_LEFT_RIGHT
+    PS2_JOYSTICK_RIGHT_UP
+    PS2_JOYSTICK_RIGHT_DOWN
+    PS2_JOYSTICK_RIGHT_LEFT
+    PS2_JOYSTICK_RIGHT_RIGHT
+    
+*/
 #include <CytronPS2Shield.h> //import shield .h file
 #include <SoftwareSerial.h> //import serial com file
 #include <Servo.h> //import servo.h
 
 //initialize servo data
-Servo index
-Servo midde;
+Servo index;
+Servo middle;
 Servo ring;
 Servo pinkie;
-Servo thumb_flex;
-Servo thumb
-Servo left_flick;
-Servo right_flick;
-Servo rotate_motor;
+Servo thumbflex;
+Servo thumb;
+Servo wristFlex1;
+Servo wristFlex2;
+Servo wristRotate;
 
 Cytron_PS2Shield ps2(2,3); //SoftwareSerial: Rx and Tx Pen
 
@@ -25,23 +71,14 @@ void setup() {
     middle.attach(2);
     ring.attach(3);
     pinkie.attach(4);
-    thumb_flex.attach(5);
+    thumbflex.attach(5);
     thumb.attach(6);
-    left_flick.attach(7);
-    right_flick.attach(8);
-    rotate_motor.attach(9);
+    wristFlex1.attach(7);
+    wristFlex2.attach(8);
+    wristRotate.attach(9);
 }
 
 void loop() {
-  x_right_joyvalue = ps2.readButton(PS2_JOYSTICK_right_X_AXIS);
-  x_right_joyvalue = map(x_right_joyvalue, 0,1023,0,180);
-  y_right_joyvalue = ps2.readButton(PS2_JoyStick_right_Y_AXIS);
-  y_right_joyvalue=map(y_right_joyvalue, 0,1023,0,180);
-  
-  left_flick.write(y_right_joyvalue);
-  right_flick.write(y_right_joyvalue);
-  rotate_motor.write(x_right_joyvalue);
-  
   //check what button has been pressed
   if(ps2.readButton(PS2_CIRCLE) == 0) {
     Serial.println("CIRCLE");
@@ -58,10 +95,6 @@ void loop() {
   else if(ps2.readButton(PS2_CROSS) == 0) {
     Serial.println("CROSS");
     FlexFingers();
-  }
-  //if not button is pressed then the servo with be able to rotate and flex
-  else {
-    RotateAndFlexWrist();
   }
 }
 
@@ -158,14 +191,17 @@ void FlexFingers() {
   pinkie.write(180);
   delay(100);
   pinkie.write(0);
+  
   //ring
   ring.write(180);
   delay(100);
   ring.write(0);
+  
   //middle
   middle.write(180);
   delay(100);
   middle.write(0);
+  
   //index
   index.write(180);
   delay(100);
